@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  model_lstm_api:
+    image: renanleal/model-lstm-api:latest
+    container_name: model_lstm_api
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
