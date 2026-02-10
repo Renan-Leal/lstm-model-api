@@ -1,0 +1,7 @@
+.gitignore
+Dockerfile
+docker-compose.yml
+pip
+README.md
+tech_challenge_lstm.ipynb
+venv
