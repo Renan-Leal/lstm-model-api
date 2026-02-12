@@ -113,27 +113,6 @@ Predicts the **next closing price** based on the last 60 closing prices.
 
 ---
 
-#### `POST /predict_n_days`
-Predicts the closing price for the next **N days** using an autoregressive approach.
-
-**Input**
-```json
-{
-  "last_60_prices": [...],
-  "days": 5
-}
-```
-
-**Output**
-```json
-{
-  "days": 5,
-  "predictions": [52.1, 52.4, 52.7, 52.6, 53.0]
-}
-```
-
----
-
 #### `GET /health`
 Health check endpoint to verify API and model availability.
 

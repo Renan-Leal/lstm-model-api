@@ -166,42 +166,6 @@ def predict_price(data: PriceInput, request: Request):
         raise HTTPException(status_code=500, detail="Inference failed")
 
 
-@app.post("/predict_n_days")
-def predict_n_days(data: PredictNDaysInput, request: Request):
-    log = logger.bind(request_id=request.state.request_id)
-
-    if len(data.last_60_prices) != WINDOW_SIZE:
-        log.warning("INVALID INPUT SIZE | expected=60")
-        raise HTTPException(status_code=400, detail="Exactly 60 prices are required")
-
-    start_time = time.time()
-
-    try:
-        prices = np.array(data.last_60_prices).reshape(-1, 1)
-        scaled_prices = scaler.transform(prices)
-
-        predictions = []
-        current_window = scaled_prices.copy()
-
-        for _ in range(data.n_days):
-            X_input = current_window.reshape(1, WINDOW_SIZE, 1)
-            scaled_pred = model.predict(X_input, verbose=0)
-            predictions.append(scaler.inverse_transform(scaled_pred)[0][0])
-            current_window = np.vstack([current_window[1:], scaled_pred])
-
-        latency = round(time.time() - start_time, 4)
-        log.info("INFERENCE | type=multi | days={} | latency={}s", data.n_days, latency)
-
-        return {
-            "n_days": data.n_days,
-            "predicted_prices": predictions
-        }
-
-    except Exception:
-        log.exception("MULTI INFERENCE FAILED")
-        raise HTTPException(status_code=500, detail="Inference failed")
-
-
 @app.get("/explain")
 def explain(request: Request):
     log = logger.bind(request_id=request.state.request_id)
