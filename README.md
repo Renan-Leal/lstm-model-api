@@ -25,6 +25,17 @@ This project was developed as part of a **Machine Learning / Deep Learning techn
 ```
 lstm-model-api/
 │
+├── config/
+│   ├── docker-compose-dev.yml
+│   ├── docker-compose-prod.yml
+│   └── docker-compose.dozzle.yml
+│
+├── scripts/
+│   ├── down-dev.sh
+│   ├── down-prod.sh
+│   ├── run-dev.sh
+│   └── run-prod.sh
+│
 ├── app.py                     # FastAPI application
 ├── modelo_lstm.keras          # Trained LSTM model (Keras format)
 ├── scaler.pkl                 # MinMaxScaler used during training
@@ -32,8 +43,6 @@ lstm-model-api/
 ├── tech_challenge_lstm.ipynb  # Notebook with data analysis, training and evaluation
 │
 ├── Dockerfile                 # Docker image configuration
-├── docker-compose.yml         # Docker Compose setup
-│
 ├── requirements.txt           # Python dependencies
 ├── README.md                  # Project documentation
 │
@@ -194,3 +203,4 @@ http://localhost:8000/docs
 ## 📄 License
 
 This project is for **educational and demonstrative purposes**.
+
